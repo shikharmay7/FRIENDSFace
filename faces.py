@@ -2,21 +2,21 @@ import cv2
 import numpy as np 
 import pickle
 
-face_cascades = cv2.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2.xml')
-eye_cascades = cv2.CascadeClassifier('cascades/data/haarcascade_eye.xml')
+face_cascades = cv2.CascadeClassifier('cascades/data/haarcascade_frontalface_alt2.xml')		#CascadeClassifier for face
+eye_cascades = cv2.CascadeClassifier('cascades/data/haarcascade_eye.xml')		#CascadeClassifier for eyes
 
 
-recognizer = cv2.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create()	#if there is a problem here then, execute "pip install opencv-contrib-python" on the command line
 recognizer.read("trainer.yml")
 
 
 labels = {}
 
-with open("labels.pickle",'rb') as f:
+with open("labels.pickle",'rb') as f:		#open the file in read mode
 	og_labels = pickle.load(f)
-	labels = {v:k for k,v in og_labels.items()}
+	labels = {v:k for k,v in og_labels.items()}	#inverting the dictionary
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)	#camera start
 
 while(True):
 
