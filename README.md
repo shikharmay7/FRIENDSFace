@@ -1,6 +1,6 @@
 Face Recognition and Identification
 
-Library/Package used: 
+Libraries/Packages used: 
 cv2,
 numpy,
 os,
@@ -21,4 +21,6 @@ The model is not very accurate( which is pretty obvious as it does not use any o
 but it performs pretty good over different test cases.  
 
 Make sure to use the images of approximately the same size while training, and then resize them.
+
+A good resolution webcam is an add on!
 
