@@ -16,10 +16,10 @@ recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 
 current_id = 0
-label_ids = {}
+label_ids = {}	#a dictionary to hold labels and their ids
 
-y_labels = []
-x_train = []
+y_labels = []	#contains labels for all images
+x_train = []	#contains the images in np.array dtype=uint8
 
 for root, dirs, files in os.walk(image_dir):
 	#print("root ", root)
@@ -43,11 +43,11 @@ for root, dirs, files in os.walk(image_dir):
 			#y_labels.append(label)
 			#x_train.append(path)
 
-			pil_image = Image.open(path).convert("L")	#grayscale
+			pil_image = Image.open(path).convert("L")	#converts to grayscale
 			
-			size = (550,550)
+			size = (550,550)	#resize for better results
 			final_image = pil_image.resize(size, Image.ANTIALIAS)
-			image_array = np.array(final_image,"uint8")	#convert into np array
+			image_array = np.array(final_image,"uint8")	#convert into np array after resizing
 			#print(image_array)
 
 			faces = face_cascades.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5 )
@@ -61,8 +61,8 @@ for root, dirs, files in os.walk(image_dir):
 #print(y_labels)
 #print(x_train)
 
-with open("labels.pickle",'wb') as f:
-	pickle.dump(label_ids,f)
+with open("labels.pickle",'wb') as f:	#open the file in write mode
+	pickle.dump(label_ids,f)	#write the dictionary there
 
-recognizer.train(x_train,np.array(y_labels))
+recognizer.train(x_train,np.array(y_labels))	
 recognizer.save("trainer.yml")
